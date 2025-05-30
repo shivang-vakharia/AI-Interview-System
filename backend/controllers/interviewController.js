@@ -30,6 +30,8 @@ exports.startInterview = async (req, res) => {
         });
 
         await session.save();
+        console.log('Created interview session', session);
+
 
         res.json({ sessionId: session._id, role, questions });
     } catch (err) {

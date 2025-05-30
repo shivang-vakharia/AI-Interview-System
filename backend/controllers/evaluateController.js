@@ -2,13 +2,16 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const InterviewSession = require('../models/InterviewSession');
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+const multer = require('multer');
+const upload = multer();
+
 exports.evaluateAnswer = async (req, res) => {
 
 //    console.log("incoming request body:", req.body);
 
     const { question, answer, sessionId } = req.body;
 
-    if (!question || !answer || !sessionId) {
+    if (!question || !sessionId) {
         console.log({ question, answer, sessionId });
         return res.status(400).json({ error: "Question, answer and sessionId required!"});
     }
