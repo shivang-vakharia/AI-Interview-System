@@ -44,10 +44,16 @@ exports.evaluateAnswer = async (req, res) => {
         const response = await result.response;
         const evaluationText = response.text();
 
+        console.log("Before pushing answer:", session.answers.length);
         session.answers.push({ question, answer, evaluation: evaluationText });
+        console.log("After pushing answer:", session.answers.length);
+
         await session.save();
+        console.log("Session saved with answers:", session.answers.length);
 
         res.json({ evaluation: evaluationText });
+        console.log("Evaluation Text:", evaluationText);
+
     } catch (err) {
         res.status(500).json({ error: "Evaluation Failed", details: err.message });
     }

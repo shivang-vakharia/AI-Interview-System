@@ -1,6 +1,7 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const InterviewSession = require('../models/InterviewSession');
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const Session = require('../models/InterviewSession');
 
 //Start interview and generate questions
 exports.startInterview = async (req, res) => {
@@ -49,12 +50,43 @@ exports.getResults = async (req, res) => {
             return res.status(403).json({ error: "Unauthorized" });
         }
 
+        const answersWithFeedback = session.answers.map(a => ({
+            question: a.question,
+            answer: a.answer,
+            feedback: a.evaluation,
+        }))
+
         res.json({
             role: session.role,
-            answers: session.answers,
+            questions: session.questions,
+            answers: answersWithFeedback,
             createdAt: session.createdAt,
         });
     } catch (err) {
         return res.status(500).json({ error: "Error fetching details", details: err.message });
     }
 }
+
+exports.getSessions = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { limit = 10, offset = 0, role, bookmarked } = req.query;
+
+        const query = { userId };
+
+        if (role) {
+            query.role = new RegExp(role, 'i');
+        }
+
+        const sessions = await InterviewSession.find(query)
+            .sort({ createdAt: -1 })
+            .select('_id role answers createdAt bookmarked');
+
+        const total = await Session.countDocuments(query);
+
+        res.json({ sessions, total });
+    } catch (err) {
+        console.error('Error fetching sessions:', err);
+        res.status(500).json({ error: "Error fetching sessions", details: err.message });
+    }
+};

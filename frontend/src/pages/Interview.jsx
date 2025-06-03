@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
 
@@ -16,8 +16,12 @@ const Interview = () => {
   const sessionId = useAuthStore(state => state.sessionId);
   const setSessionId = useAuthStore((state) => state.setSessionId)
 
+  const didFetch = useRef(false);
+
   // Fetch ALL questions ONCE when component mounts
   useEffect(() => {
+    if (didFetch.current) return;
+    didFetch.current = true;
     fetchQuestions();
   }, []);
 
