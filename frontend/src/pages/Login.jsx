@@ -23,8 +23,6 @@ function Login() {
         }
     }
 
-
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const setToken = useAuthStore((state) => state.setToken);

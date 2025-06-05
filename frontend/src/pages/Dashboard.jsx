@@ -59,13 +59,18 @@ const Dashboard = () => {
         navigate(`/session/${sessionId}`);
     };
 
+    const handleLogoClick = () => {
+        navigate('/'); // Navigate to landing page
+    };
+
     return (
         
         <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style={{fontFamily: 'Inter, "Noto Sans", sans-serif'}}>
             <div className="layout-container flex h-full grow flex-col">
                 {/* Header */}
                 <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 px-10 py-3">
-                    <div className="flex items-center gap-4 text-gray-900">
+                    <div className="flex items-center gap-4 text-[#111418] cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={handleLogoClick}>
                         <div className="size-4">
                             <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
