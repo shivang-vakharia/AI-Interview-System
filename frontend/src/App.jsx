@@ -6,6 +6,7 @@ import RoleSelection from './pages/RoleSelection';
 import Interview from './pages/Interview';
 import SessionDetail from './pages/SessionDetail';
 import { useAuthStore } from './store/auth';
+import LandingPage from './pages/LandingPage';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/login" />} />

@@ -48,11 +48,17 @@ function Login() {
         }
     };
 
+    const handleLogoClick = () => {
+        navigate('/'); // Navigate to landing page
+    };
+
     return (
         <div className="relative flex min-h-screen flex-col bg-white overflow-x-hidden font-['Inter','Noto Sans',sans-serif]">
             <div className="flex flex-col h-full">
                 <header className="flex items-center justify-between border-b border-[#f0f2f4] px-4 md:px-10 py-3">
-                    <div className="flex items-center gap-4 text-[#111418]">
+                    <div className="flex items-center gap-4 text-[#111418] cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={handleLogoClick}>
+
                         <div className="w-4 h-4">
                             <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -73,8 +79,10 @@ function Login() {
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="h-10 px-4 rounded-lg bg-[#f0f2f4] text-white text-sm font-bold hover:bg-[#e1e5e9]">
-                            Log in
+                        <button 
+                            onClick={() => navigate("/signup")}
+                            className="h-10 px-4 rounded-lg bg-[#f0f2f4] text-white text-sm font-bold hover:bg-[#e1e5e9]">
+                            Sign Up
                         </button>
                     </div>
                 </header>
