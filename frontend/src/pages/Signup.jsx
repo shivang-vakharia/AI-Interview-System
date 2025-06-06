@@ -2,13 +2,34 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import { useAuthStore } from "../store/auth";
+import { signInWithPopup, auth, provider } from '../firebase';
 
 function Signup() {
+
+    const handleGoogleSignup = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const idToken = await result.user.getIdToken();
+            //console.log('Google ID Token:', idToken); 
+
+            const res = await api.post('/auth/google', { idToken });
+
+            setToken(res.data.token, res.data.user);
+            navigate('/dashboard');
+
+        } catch (error) {
+            console.error('Google login failed:', error);
+            alert('Google login failed. Please try again.');
+        }
+    };
+    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState(""); // Added missing state
     const setToken = useAuthStore((state) => state.setToken);
     const navigate = useNavigate();
+
+    
 
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -33,11 +54,7 @@ function Signup() {
     };
 
     // Added missing Google signup handler
-    const handleGoogleSignup = () => {
-        // Implement Google OAuth signup here
-        console.log("Google signup clicked");
-        alert("Google signup not implemented yet");
-    };
+    
 
     return (
         <div className="relative flex min-h-screen flex-col bg-white overflow-x-hidden font-['Inter','Noto Sans',sans-serif]">

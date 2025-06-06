@@ -61,7 +61,7 @@ const RoleSelection = () => {
                                 />
                             </svg>
                         </div>
-                        <h2 className="text-[#121416] text-lg font-bold leading-tight tracking-[-0.015em]">InterviewAI</h2>
+                        <h2 className="text-[#121416] text-lg font-bold leading-tight tracking-[-0.015em]">AI Interview System</h2>
                     </div>
                     <div className="flex flex-1 justify-end gap-8">
                         <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#f1f2f4] text-[#121416] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">

@@ -87,7 +87,7 @@ const Dashboard = () => {
                                 />
                             </svg>
                         </div>
-                        <h2 className="text-gray-900 text-lg font-bold leading-tight tracking-tight">AI Interview System</h2>
+                        <h2 className="text-lg font-bold">AI Interview System</h2>
                     </div>
                     <div className="flex flex-1 justify-end gap-8">
                         <button
